@@ -7,11 +7,21 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
+void _onButtonPressed(int buttonNumber) {
+  print('Button  pressed!');
+  // 추가적인 동작을 수행하고자 하는 코드 작성
+  // 예를 들어 다른 화면으로 이동하거나 데이터를 업데이트하는 등의 동작 수행 가능
+}
+
+
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
   }
+
+  final List<String> items = ['전체', '치킨', '한식', '양식', '중식', '분식', '카페', '피자', '패스트푸드', '족발/보쌈', '도시락', '아시안'];
+
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +33,6 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           const SizedBox(
             height: 60,
-            // child: DecoratedBox(
-            //   decoration: BoxDecoration(
-            //     color: Colors.yellow,
-            //   ),
-            // ),
           ), // 60만큼의 빈 공간을 추가하여 상단 여백 생성
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 0),
@@ -122,37 +127,17 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ],
                       ),
-
-                      // width: MediaQuery.of(context).size.width,
-                      // margin: EdgeInsets.symmetric(horizontal: 5.0),
-                      // decoration: BoxDecoration(
-                      //     color: Colors.black12,
-                      //     borderRadius: BorderRadius.circular(10)
-                      // ),
-                      //   child: Container(
-                      //     decoration: BoxDecoration(
-                      //       borderRadius: BorderRadius.circular(10),
-                      //       image: DecorationImage(
-                      //
-                      //         image: AssetImage('assets/images/sample${i.toString()}.jpeg'),
-                      //         fit: BoxFit.cover,
-                      //       ),
-                      //     ),
-                      //   ),
-                      // child: Text('text $i', style: TextStyle(fontSize: 16.0)),ㄱ
                     );
                   },
                 );
               }).toList(),
             )),
           Flexible(
-
               child: Container(
                 margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
                 color: Color.fromRGBO(228, 225, 225, 0.4),
                 height: 10,
               )),
-
           Flexible(
               flex: 3,
               child: Container(
@@ -166,12 +151,80 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: Colors.black87,  // 텍스트 색상
                 )),
               )),
+
+
+
           Flexible(
-              flex: 6,
-              child: Container(color: Colors.green)),
+            flex: 6,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.0),
+              child: Column(
+                children: List.generate(3, (rowIndex) {
+                  return Expanded(
+                    child: Row(
+                      children: List.generate(3, (columnIndex) {
+                        final buttonIndex = rowIndex * 3 + columnIndex;
+                        // print(buttonIndex);
+                        final buttonText = items[buttonIndex];
+                        print(buttonText);
+                        return Expanded(
+                          child: Padding(
+                            padding: EdgeInsets.all(4.0),
+                            child: SizedBox(
+                              height: 40.0,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  // 버튼이 눌렸을 때 수행할 동작을 여기에 작성하세요.
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.white,
+                                  onPrimary: Colors.black,
+                                  side: BorderSide(color: Colors.black, width: 0.2),
+                                  elevation: 0,
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(width: 0.0), // 왼쪽 공백
+                                    Expanded(
+                                      child: Text(
+                                        buttonText,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(fontSize: 14),
+                                      ),
+                                    ),
+                                    Icon(
+                                      Icons.arrow_forward_ios_rounded,
+                                      size: 12.0,
+                                      color: Colors.black38,
+                                    ),
+                                  ],
+                                ),
+
+
+                              ),
+                            ),
+                          ),
+                        );
+                      }),
+                    ),
+                  );
+                }),
+              ),
+            ),
+          ),
         ],
-        // child: Text('contents'),
       ),
     );
   }
 }
+
+
+/**
+ *                         // Expanded(child: ElevatedButton(
+    //     onPressed: _onButton4Pressed,
+    //     child: Text('zz'
+    //     )
+    //   )
+    // ),
+ */
